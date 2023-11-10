@@ -5,11 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ImageDisplayExample {
+public class SemaforoPanel extends JPanel {
+    private JLabel label;
+    private Semaforo semaforo;
     private static final int TARGET_WIDTH = 700;
     private static final int TARGET_HEIGHT = 700;
 
-    public static void main(String[] args) {
+    public SemaforoPanel(Semaforo semaforo) {
+        this.semaforo = semaforo;
+    }
+
+    public void display() {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Semaforo");
             frame.setSize(1200, 1000);
@@ -68,7 +74,7 @@ public class ImageDisplayExample {
         });
     }
 
-    private static ImageIcon scaleImage(ImageIcon originalIcon, int targetWidth, int targetHeight) {
+    private ImageIcon scaleImage(ImageIcon originalIcon, int targetWidth, int targetHeight) {
         // Obtener la imagen original
         Image originalImage = originalIcon.getImage();
 
