@@ -56,7 +56,7 @@ public class SemaforoPanel extends JPanel {
 
             this.semaforo.start();
             // Crea un temporizador que se activa cada 500 milisegundos (0.5 segundos)
-            Timer timer = new Timer(500, new ActionListener() {
+            Timer timer = new Timer(50, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Actualiza la imagen en la etiqueta
