@@ -1,0 +1,62 @@
+@startuml
+class es.ull.patrones.practica5.estados.EVerdeOn {
++ ACEstado changeState()
++ String getImagen()
++ String toString()
+}
+class es.ull.patrones.practica5.estados.EAmbar {
++ ACEstado changeState()
++ String getSound()
++ String getImagen()
++ String toString()
+}
+abstract class es.ull.patrones.practica5.estados.ACEstado {
+~ Semaforo semaforo
++ ACEstado changeState()
++ {abstract}String getSound()
++ {abstract}String getImagen()
++ {abstract}String toString()
+}
+class es.ull.patrones.practica5.Main {
++ {static} void main(String[])
+}
+class es.ull.patrones.practica5.Semaforo {
+- ACEstado estado
++ void start()
++ ACEstado getState()
+- void changeState()
+- void parpadeoVerde(boolean)
+}
+class es.ull.patrones.practica5.estados.EVerdeOff {
++ ACEstado changeState()
++ String getImagen()
++ String toString()
+}
+class es.ull.patrones.practica5.estados.EVerde {
++ ACEstado changeState()
++ String getSound()
++ String getImagen()
++ String toString()
+}
+class es.ull.patrones.practica5.SemaforoPanel {
++ void display()
+}
+class es.ull.patrones.practica5.estados.ERojo {
++ ACEstado changeState()
++ String getSound()
++ String getImagen()
++ String toString()
+}
+
+
+es.ull.patrones.practica5.estados.EVerde <|-- es.ull.patrones.practica5.estados.EVerdeOn
+es.ull.patrones.practica5.estados.ACEstado <|-- es.ull.patrones.practica5.estados.EAmbar
+es.ull.patrones.practica5.estados.EVerde <|-- es.ull.patrones.practica5.estados.EVerdeOff
+es.ull.patrones.practica5.estados.ACEstado <|-- es.ull.patrones.practica5.estados.EVerde
+es.ull.patrones.practica5.JPanel <|-- es.ull.patrones.practica5.SemaforoPanel
+es.ull.patrones.practica5.estados.ACEstado <|-- es.ull.patrones.practica5.estados.ERojo
+es.ull.patrones.practica5.Semaforo::estado o--> es.ull.patrones.practica5.estados.ACEstado
+es.ull.patrones.practica5.Semaforo <-- es.ull.patrones.practica5.estados.ACEstado::semaforo
+es.ull.patrones.practica5.SemaforoPanel --> es.ull.patrones.practica5.Semaforo
+es.ull.patrones.practica5.SemaforoPanel ..> es.ull.patrones.practica5.estados.ACEstado
+@enduml

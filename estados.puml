@@ -1,0 +1,44 @@
+@startuml
+class es.ull.patrones.practica5.estados.EVerdeOn {
++ ACEstado changeState()
++ String getImagen()
++ String toString()
+}
+class es.ull.patrones.practica5.estados.EAmbar {
++ ACEstado changeState()
++ String getSound()
++ String getImagen()
++ String toString()
+}
+abstract class es.ull.patrones.practica5.estados.ACEstado {
+~ Semaforo semaforo
++ {abstract}ACEstado changeState()
++ {abstract}String getSound()
++ {abstract}String getImagen()
++ {abstract}String toString()
+}
+class es.ull.patrones.practica5.estados.EVerdeOff {
++ ACEstado changeState()
++ String getImagen()
++ String toString()
+}
+class es.ull.patrones.practica5.estados.EVerde {
++ ACEstado changeState()
++ String getSound()
++ String getImagen()
++ String toString()
+}
+class es.ull.patrones.practica5.estados.ERojo {
++ ACEstado changeState()
++ String getSound()
++ String getImagen()
++ String toString()
+}
+
+
+es.ull.patrones.practica5.estados.EVerde <|-- es.ull.patrones.practica5.estados.EVerdeOn
+es.ull.patrones.practica5.estados.ACEstado <|-- es.ull.patrones.practica5.estados.EAmbar
+es.ull.patrones.practica5.estados.EVerde <|-- es.ull.patrones.practica5.estados.EVerdeOff
+es.ull.patrones.practica5.estados.ACEstado <|-- es.ull.patrones.practica5.estados.EVerde
+es.ull.patrones.practica5.estados.ACEstado <|-- es.ull.patrones.practica5.estados.ERojo
+@enduml

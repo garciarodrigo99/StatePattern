@@ -1,12 +1,13 @@
 package es.ull.patrones.practica5;
 
-import es.ull.patrones.practica5.estados.ACEstado;
-import es.ull.patrones.practica5.estados.ERojo;
-import es.ull.patrones.practica5.estados.EVerde;
-import es.ull.patrones.practica5.estados.EVerdeOn;
+import es.ull.patrones.practica5.estados.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class Semaforo {
     private ACEstado estado = null;
@@ -53,6 +54,17 @@ public class Semaforo {
                         changeState();
                         decisegundos = 0;
                         break;
+
+                    default:
+                        if (probabilidad20()){
+                            try {
+                                estadoAzul(estado);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                    break;
                 }
             }
         }, 500, 100);
@@ -74,6 +86,26 @@ public class Semaforo {
         else {
             this.estado = new EVerde(Semaforo.this);
         }
+    }
+    private void estadoAzul(ACEstado currentState) throws InterruptedException {
+        this.estado = new EAzul(Semaforo.this,estado);
+        sleep(timeBlue(3,9));
+        estado.changeState();
+    }
+    // Probabilidad entrar en azul
+    private boolean probabilidad20() {
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(2500) + 1; // Genera un número entre 1 y 100
+
+        // Retorna true si el número aleatorio está en el rango del 20%
+        return numeroAleatorio <= 20;
+    }
+    // Margen de tiempo que dura el semaforo azul(segundos)
+    private int timeBlue(int min, int max) {
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(max) + min; // Genera un número entre 1 y 100
+
+        return numeroAleatorio *= 1000; // Se devuelve el valor en milisegundos
     }
     public ACEstado getState(){
         return this.estado;
