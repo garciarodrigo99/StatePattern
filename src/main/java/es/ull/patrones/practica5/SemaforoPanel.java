@@ -7,37 +7,38 @@ import java.awt.event.ActionListener;
 
 public class SemaforoPanel extends JPanel {
     private JLabel label;
+    private JFrame frame;
+
+    private JPanel panel;
     private Semaforo semaforo;
     private static final int TARGET_WIDTH = 700;
     private static final int TARGET_HEIGHT = 700;
 
     public SemaforoPanel(Semaforo semaforo) {
         this.semaforo = semaforo;
+        this.frame = new JFrame("Semaforo");
+        this.frame.setSize(1200, 1000);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Crear un JPanel personalizado con un fondo de imagen
+        panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                // Cargar la imagen de fondo
+                ImageIcon backgroundImage = new ImageIcon("src/main/resources/semaforo/fondo.jpg");
+                Image image = backgroundImage.getImage();
+
+                // Dibujar la imagen de fondo en el JPanel
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        // Establecer el diseño del JPanel
+        panel.setLayout(new GridBagLayout());
     }
 
     public void display() {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Semaforo");
-            frame.setSize(1200, 1000);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            // Crear un JPanel personalizado con un fondo de imagen
-            JPanel panel = new JPanel() {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-
-                    // Cargar la imagen de fondo
-                    ImageIcon backgroundImage = new ImageIcon("src/main/resources/semaforo/fondo.jpg");
-                    Image image = backgroundImage.getImage();
-
-                    // Dibujar la imagen de fondo en el JPanel
-                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-                }
-            };
-
-            // Establecer el diseño del JPanel
-            panel.setLayout(new GridBagLayout());
 
             JLabel label = new JLabel();
 
@@ -53,8 +54,7 @@ public class SemaforoPanel extends JPanel {
 
             frame.add(panel);
 
-            Semaforo semaforo = new Semaforo();
-            semaforo.start();
+            this.semaforo.start();
             // Crea un temporizador que se activa cada 500 milisegundos (0.5 segundos)
             Timer timer = new Timer(500, new ActionListener() {
                 @Override
